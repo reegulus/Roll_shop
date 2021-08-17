@@ -17,7 +17,6 @@ export default class Model {
 
 
         const product = this.products.find((item) => item.id === id)
-        console.log(product)
 
         if (action === 'plus') {
             ++product.counter
@@ -26,6 +25,6 @@ export default class Model {
         if (action === 'minus') {
             --product.counter
         }
-        console.log(product)
+        return (product)
     }
 }

@@ -37,3 +37,9 @@ export function renderProducts(productsArray) {
         elements.productsContainer.insertAdjacentHTML('beforeend', productHTML)
     })
 }
+
+export function updateCounter(product) {
+    const counterWrapper = document.querySelector(`[data-id="${product.id}"]`)
+    const counterElement = counterWrapper.querySelector('[data-counter]')
+    counterElement.innerText = product.counter
+}
