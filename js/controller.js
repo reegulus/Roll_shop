@@ -1,7 +1,9 @@
 import ProductsModel from './products/model.js'
 import * as productsView from './products/view.js'
+import CartModel from './cart/model.js'
 
 const productsModel = new ProductsModel()
+const cartModel = new CartModel()
 
 
 //Фсинхронная функция getAndRenderProducts
