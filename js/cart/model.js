@@ -4,6 +4,7 @@ export default class Model {
     }
 
     addToCart(product) {
+        this.card.push(JSON.parse(JSON.stringify(product)))
 
     }
 
