@@ -26,9 +26,14 @@ productsView.elements.productsContainer.addEventListener('click', function (even
         const productId = +event.target.closest('.card').dataset.id
 
         //Запускаем модель для изменения счётчика
-        const product =      productsModel.updateCounter(productId, action)
+        const product = productsModel.updateCounter(productId, action)
 
         productsView.updateCounter(product)
+    }
+
+    if(action === 'add-to-cart') {
+        const productId = +event.target.closest('.card').dataset.id
+        const product = productsModel.getProduct(productId)
     }
 
 })

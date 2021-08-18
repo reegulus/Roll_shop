@@ -13,10 +13,7 @@ export default class Model {
     }
 
     updateCounter(id, action) {
-
-
-
-        const product = this.products.find((item) => item.id === id)
+        const product = this.getProduct(id)
 
         if (action === 'plus') {
             ++product.counter
@@ -27,4 +24,9 @@ export default class Model {
         }
         return (product)
     }
+
+    getProduct(id) {
+        return this.products.find((item) => item.id === id)
+    }
+
 }

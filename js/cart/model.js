@@ -3,4 +3,8 @@ export default class Model {
         this.card = []
     }
 
+    addToCart(product) {
+
+    }
+
 }
