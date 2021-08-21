@@ -2,6 +2,7 @@ import ProductsModel from './products/model.js';
 import CartModel from './cart/model.js';
 
 import * as productsView from './products/view.js'
+import * as cartView from './cart/view.js'
 
 const productsModel = new ProductsModel();
 const cartModel = new CartModel();
@@ -44,5 +45,7 @@ productsView.elements.productsContainer.addEventListener('click', function (even
 
         // Добавить в корзину - ДАННЫЕ
         cartModel.addToCart(product);
+
+        cartView.renderCart(cartModel.cart)
     }
 })
