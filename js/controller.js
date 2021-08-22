@@ -47,5 +47,9 @@ productsView.elements.productsContainer.addEventListener('click', function (even
         cartModel.addToCart(product);
 
         cartView.renderCart(cartModel.cart)
+
+        productsModel.resetCounter(product)
+
+        productsView.updateCounter(product)
     }
 })
