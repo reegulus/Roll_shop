@@ -54,3 +54,7 @@ function toggleCart() {
         elements.orderForm.classList.add('none')
     }
 }
+
+export function updateOrderPrice(price) {
+    elements.totalPrice.innerText = new Intl.NumberFormat().format(price)
+}

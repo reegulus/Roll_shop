@@ -51,5 +51,8 @@ productsView.elements.productsContainer.addEventListener('click', function (even
         productsModel.resetCounter(product)
 
         productsView.updateCounter(product)
+
+        const totalPrice = cartModel.getTotalCartPrice()
+        cartView.updateOrderPrice(totalPrice)
     }
 })
