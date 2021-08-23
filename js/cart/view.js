@@ -28,7 +28,7 @@ export function renderCart(product) {
 \t\t\t\t</div>
 
 \t\t\t\t<div class="price">
-\t\t\t\t\t<div class="price__currency">${item.price}</div>
+\t\t\t\t\t<div class="price__currency">${item.price}₽</div>
 \t\t\t\t</div>
 \t\t\t</div>
 \t\t\t<!-- // cart-item__details -->
