@@ -48,7 +48,7 @@ function toggleCart() {
         console.log('FULL')
         elements.cartEmptyBadge.classList.add('none')
         elements.orderForm.classList.remove('none')
-    }else {
+    } else {
         console.log('EMPTY')
         elements.cartEmptyBadge.classList.remove('none')
         elements.orderForm.classList.add('none')
@@ -57,4 +57,15 @@ function toggleCart() {
 
 export function updateOrderPrice(price) {
     elements.totalPrice.innerText = new Intl.NumberFormat().format(price)
+}
+
+export function updateCounter(product) {
+    const productWrapper = elements.cartWrapper.querySelector(`[data-id="${product.id}"]`)
+    const counterElement = productWrapper.querySelector('[data-counter]')
+    counterElement.innerText = product.counter
+}
+
+export function removeItemFromCart(product) {
+    const productWrapper = elements.cartWrapper.querySelector(`[data-id="${product.id}"]`)
+    productWrapper.remove()
 }

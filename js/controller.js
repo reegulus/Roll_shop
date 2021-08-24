@@ -3,6 +3,7 @@ import CartModel from './cart/model.js';
 
 import * as productsView from './products/view.js'
 import * as cartView from './cart/view.js'
+import {updateCounter} from "./cart/view.js";
 
 const productsModel = new ProductsModel();
 const cartModel = new CartModel();
@@ -63,6 +64,12 @@ cartView.elements.cartWrapper.addEventListener('click', function(event) {
     if(action === 'plus' || action === 'minus') {
         const productId = +event.target.closest('.cart-item').dataset
 
-        cartModel.updateCounterInCart(productId, action)
+       const product = cartModel.updateCounterInCart(productId, action)
+
+         if(product.counter > 0) {
+             cartView.updateCounter(product)
+         } else {
+             cartView.removeItemFromCart(product)
+         }
     }
 })
