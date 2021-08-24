@@ -31,4 +31,27 @@ export default class Model {
 
         return totalPrice
     }
+
+    updateCounterInCart(id, action) {
+        let productInCart
+
+        productInCart = this.cart.find((product) => {
+            return id === product.id
+        })
+
+        if(action === 'plus') {
+            ++productInCart.counter
+        }
+
+        if(action === 'minus' && productInCart.counter > 0) {
+            --productInCart.counter
+        }
+
+        if (productInCart.counter === 0) {
+            const index = this.cart.findIndex((item) => {
+               return item.id === productInCart.id
+            })
+            this.cart.splice(index, 1)
+        }
+    }
 }

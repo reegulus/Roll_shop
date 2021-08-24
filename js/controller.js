@@ -56,3 +56,13 @@ productsView.elements.productsContainer.addEventListener('click', function (even
         cartView.updateOrderPrice(totalPrice)
     }
 })
+
+cartView.elements.cartWrapper.addEventListener('click', function(event) {
+    let action = event.target.dataset.action
+
+    if(action === 'plus' || action === 'minus') {
+        const productId = +event.target.closest('.cart-item').dataset
+
+        cartModel.updateCounterInCart(productId, action)
+    }
+})
