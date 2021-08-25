@@ -71,5 +71,7 @@ cartView.elements.cartWrapper.addEventListener('click', function(event) {
          } else {
              cartView.removeItemFromCart(product)
          }
+        const totalPrice = cartModel.getTotalCartPrice()
+        cartView.updateOrderPrice(totalPrice)
     }
 })
