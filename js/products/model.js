@@ -1,6 +1,6 @@
 export default class Model {
     constructor() {
-        this.products = [];
+        this.products = [{}];
     }
 
     async loadProducts() {
@@ -10,11 +10,9 @@ export default class Model {
         for (const product of this.products) {
             product.counter = 1;
         }
-
     }
 
     updateCounter(id, action) {
-
         // Находим продукт в списке продуктов
         const product = this.getProduct(id);
 
@@ -36,7 +34,6 @@ export default class Model {
     }
 
     resetCounter(product) {
-        product.counter = 1
+        product.counter = 1;
     }
-
 }

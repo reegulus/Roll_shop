@@ -1,18 +1,19 @@
 export default class Model {
     constructor() {
         this.cart = [];
-        this.loadCardFromLocalStorage()
+        this.loadCartFromLocalStorage();
+        console.log(this.cart);
     }
 
-    loadCardFromLocalStorage() {
-        const data = localStorage.getItem('cart')
-        if(data) {
-            this.cart = JSON.parse(data)
+    loadCartFromLocalStorage() {
+        const data = localStorage.getItem('cart');
+        if (data) {
+            this.cart = JSON.parse(data);
         }
     }
 
     saveCartToLocalStorage() {
-        localStorage.setItem('cart', JSON.stringify(this.cart))
+        localStorage.setItem('cart', JSON.stringify(this.cart));
     }
 
     addToCart(product) {
@@ -20,8 +21,8 @@ export default class Model {
 
         // Находим товар в корзине
         productInCart = this.cart.find(function (productInCart) {
-            return productInCart.id === product.id
-        })
+            return productInCart.id === product.id;
+        });
 
         if (productInCart) {
             productInCart.counter = productInCart.counter + product.counter;
@@ -30,43 +31,46 @@ export default class Model {
             this.cart.push(newProduct);
         }
 
-        this.saveCartToLocalStorage()
-
+        this.saveCartToLocalStorage();
     }
 
     getTotalCartPrice() {
-        let totalPrice = 0
+        let totalPrice = 0;
 
-        this.cart.forEach(function(item) {
-            totalPrice = totalPrice + item.price * item.counter
-        })
+        this.cart.forEach(function (item) {
+            totalPrice = totalPrice + item.price * item.counter;
+        });
 
-        return totalPrice
+        return totalPrice;
     }
 
     updateCounterInCart(id, action) {
-        let productInCart
+        let productInCart;
 
+        // Находим продукт в списке продуктов в корзине
         productInCart = this.cart.find((product) => {
-            return id === product.id
-        })
+            return id === product.id;
+        });
 
-        if(action === 'plus') {
-            ++productInCart.counter
+        // При "+" - увеличиваем
+        if (action === 'plus') {
+            ++productInCart.counter;
         }
 
-        if(action === 'minus' && productInCart.counter > 0) {
-            --productInCart.counter
+        // При "-" - уменьшаем, но не меньше 1
+        if (action === 'minus' && productInCart.counter > 0) {
+            --productInCart.counter;
         }
 
         if (productInCart.counter === 0) {
             const index = this.cart.findIndex((item) => {
-               return item.id === productInCart.id
-            })
-            this.cart.splice(index, 1)
+                return item.id === productInCart.id;
+            });
+            this.cart.splice(index, 1);
         }
 
-        this.saveCartToLocalStorage()
-        return productInCart
+        this.saveCartToLocalStorage();
+
+        return productInCart;
     }
 }

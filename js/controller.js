@@ -3,12 +3,10 @@ import CartModel from './cart/model.js';
 
 import * as productsView from './products/view.js'
 import * as cartView from './cart/view.js'
-import {updateCounter} from "./cart/view.js";
 
 const productsModel = new ProductsModel();
 const cartModel = new CartModel();
 
-console.log(cartModel);
 
 // Асинхронная ф-я getAndRenderProducts
 // 1. Сначала получение товаров из JSON файла
@@ -16,6 +14,8 @@ console.log(cartModel);
 async function getAndRenderProducts() {
     await productsModel.loadProducts();
     productsView.renderProducts(productsModel.products);
+    cartView.renderCart(cartModel.cart);
+    cartView.updateOrderPrice(cartModel.getTotalCartPrice());
 }
 
 getAndRenderProducts();
@@ -47,31 +47,48 @@ productsView.elements.productsContainer.addEventListener('click', function (even
         // Добавить в корзину - ДАННЫЕ
         cartModel.addToCart(product);
 
-        cartView.renderCart(cartModel.cart)
+        // Отобразить на странице в корзине - VIEW
+        cartView.renderCart(cartModel.cart);
 
-        productsModel.resetCounter(product)
+        // Сбросить количество товара в каталоге
+        productsModel.resetCounter(product);
 
-        productsView.updateCounter(product)
+        // Обновляем счетчик товара на странице
+        productsView.updateCounter(product);
 
-        const totalPrice = cartModel.getTotalCartPrice()
-        cartView.updateOrderPrice(totalPrice)
+        // Пересчитать стоимость заказа в корзине
+        const totalPrice = cartModel.getTotalCartPrice();
+
+        // Обновить стоимость заказа на странице
+        cartView.updateOrderPrice(totalPrice);
     }
 })
 
-cartView.elements.cartWrapper.addEventListener('click', function(event) {
-    let action = event.target.dataset.action
+// Добавляем прослушку на корзине - счетчики "+" и "-"
+cartView.elements.cartWrapper.addEventListener('click', function (event) {
+    // Совершаемое действие
+    let action = event.target.dataset.action;
 
-    if(action === 'plus' || action === 'minus') {
-        const productId = +event.target.closest('.cart-item').dataset
+    // Если кликнули по счетчику
+    if (action === 'plus' || action === 'minus') {
+        // Находим ID продукта
+        const productId = +event.target.closest('.cart-item').dataset.id;
 
-       const product = cartModel.updateCounterInCart(productId, action)
+        // Запускаем в модели корзины метод updateCounterInCart для изменения счетчика
+        const product = cartModel.updateCounterInCart(productId, action);
 
-         if(product.counter > 0) {
-             cartView.updateCounter(product)
-         } else {
-             cartView.removeItemFromCart(product)
-         }
-        const totalPrice = cartModel.getTotalCartPrice()
-        cartView.updateOrderPrice(totalPrice)
+        if (product.counter > 0) {
+            // Обновить счетчик на странице
+            cartView.updateCounter(product);
+        } else {
+            // Удалить товар со страницы
+            cartView.removeItemFromCart(product);
+        }
+
+        // Пересчитать стоимость заказа в корзине
+        const totalPrice = cartModel.getTotalCartPrice();
+
+        // Обновить стоимость заказа на странице
+        cartView.updateOrderPrice(totalPrice);
     }
-})
+});
