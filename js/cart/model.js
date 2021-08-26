@@ -3,6 +3,10 @@ export default class Model {
         this.cart = [];
     }
 
+    saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(this.cart))
+    }
+
     addToCart(product) {
         let productInCart;
 
@@ -18,7 +22,7 @@ export default class Model {
             this.cart.push(newProduct);
         }
 
-        console.log(this.cart);
+        this.saveCartToLocalStorage()
 
     }
 
@@ -53,5 +57,8 @@ export default class Model {
             })
             this.cart.splice(index, 1)
         }
+
+        this.saveCartToLocalStorage()
+        return productInCart
     }
 }
