@@ -1,6 +1,14 @@
 export default class Model {
     constructor() {
         this.cart = [];
+        this.loadCardFromLocalStorage()
+    }
+
+    loadCardFromLocalStorage() {
+        const data = localStorage.getItem('cart')
+        if(data) {
+            this.cart = JSON.parse(data)
+        }
     }
 
     saveCartToLocalStorage() {
